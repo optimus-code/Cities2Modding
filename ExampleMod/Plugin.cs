@@ -29,7 +29,7 @@ namespace ExampleMod
     /// An example patch
     /// </summary>
     [HarmonyPatch( typeof( SimulationSystem ), "OnCreate" )]
-    class GameManagerPatch
+    class SimulationSystem_OnCreatePatch
     {
         static void Postfix( )
         {

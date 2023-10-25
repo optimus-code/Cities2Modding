@@ -1,0 +1,382 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>disable</Nullable>
+		<RestoreAdditionalProjectSources>
+			https://api.nuget.org/v3/index.json;
+			https://nuget.bepinex.dev/v3/index.json;
+			https://nuget.samboy.dev/v3/index.json
+		</RestoreAdditionalProjectSources>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>ExampleMod</RootNamespace>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<Cities2_Location>G:\SteamLibrary\steamapps\common\Cities Skylines II</Cities2_Location>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Reference Include="Colossal.AssetPipeline">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.AssetPipeline.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.AssetPipeline.Native">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.AssetPipeline.Native.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.ATL">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.ATL.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.CharacterSystem">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.CharacterSystem.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Collections">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Collections.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Core">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Core.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.IO">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.IO.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.IO.AssetDatabase">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.IO.AssetDatabase.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Localization">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Localization.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Logging">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Logging.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Mathematics">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Mathematics.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Mono.Cecil">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Mono.Cecil.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.OdinSerializer">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.OdinSerializer.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.Plugins">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.Plugins.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.PSI.Common">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.PSI.Common.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.PSI.Discord">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.PSI.Discord.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.PSI.PdxSdk">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.PSI.PdxSdk.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.PSI.Steamworks">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.PSI.Steamworks.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.UI">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.UI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Colossal.UI.Binding">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.UI.Binding.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Game">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Game.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>unstripped_libs\UnityEngine.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AccessibilityModule">
+			<HintPath>unstripped_libs\UnityEngine.AccessibilityModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AIModule">
+			<HintPath>unstripped_libs\UnityEngine.AIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AndroidJNIModule">
+			<HintPath>unstripped_libs\UnityEngine.AndroidJNIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AnimationModule">
+			<HintPath>unstripped_libs\UnityEngine.AnimationModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AssetBundleModule">
+			<HintPath>unstripped_libs\UnityEngine.AssetBundleModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.AudioModule">
+			<HintPath>unstripped_libs\UnityEngine.AudioModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClothModule">
+			<HintPath>unstripped_libs\UnityEngine.ClothModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterInputModule">
+			<HintPath>unstripped_libs\UnityEngine.ClusterInputModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ClusterRendererModule">
+			<HintPath>unstripped_libs\UnityEngine.ClusterRendererModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ContentLoadModule">
+			<HintPath>unstripped_libs\UnityEngine.ContentLoadModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>unstripped_libs\UnityEngine.CoreModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CrashReportingModule">
+			<HintPath>unstripped_libs\UnityEngine.CrashReportingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.DirectorModule">
+			<HintPath>unstripped_libs\UnityEngine.DirectorModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.DSPGraphModule">
+			<HintPath>unstripped_libs\UnityEngine.DSPGraphModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GameCenterModule">
+			<HintPath>unstripped_libs\UnityEngine.GameCenterModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GIModule">
+			<HintPath>unstripped_libs\UnityEngine.GIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.GridModule">
+			<HintPath>unstripped_libs\UnityEngine.GridModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.HotReloadModule">
+			<HintPath>unstripped_libs\UnityEngine.HotReloadModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ImageConversionModule">
+			<HintPath>unstripped_libs\UnityEngine.ImageConversionModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>unstripped_libs\UnityEngine.IMGUIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>unstripped_libs\UnityEngine.InputLegacyModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputModule">
+			<HintPath>unstripped_libs\UnityEngine.InputModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.JSONSerializeModule">
+			<HintPath>unstripped_libs\UnityEngine.JSONSerializeModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.LocalizationModule">
+			<HintPath>unstripped_libs\UnityEngine.LocalizationModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ParticleSystemModule">
+			<HintPath>unstripped_libs\UnityEngine.ParticleSystemModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PerformanceReportingModule">
+			<HintPath>unstripped_libs\UnityEngine.PerformanceReportingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.Physics2DModule">
+			<HintPath>unstripped_libs\UnityEngine.Physics2DModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>unstripped_libs\UnityEngine.PhysicsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ProfilerModule">
+			<HintPath>unstripped_libs\UnityEngine.ProfilerModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.PropertiesModule">
+			<HintPath>unstripped_libs\UnityEngine.PropertiesModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule">
+			<HintPath>unstripped_libs\UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.ScreenCaptureModule">
+			<HintPath>unstripped_libs\UnityEngine.ScreenCaptureModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SharedInternalsModule">
+			<HintPath>unstripped_libs\UnityEngine.SharedInternalsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteMaskModule">
+			<HintPath>unstripped_libs\UnityEngine.SpriteMaskModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SpriteShapeModule">
+			<HintPath>unstripped_libs\UnityEngine.SpriteShapeModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.StreamingModule">
+			<HintPath>unstripped_libs\UnityEngine.StreamingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SubstanceModule">
+			<HintPath>unstripped_libs\UnityEngine.SubstanceModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.SubsystemsModule">
+			<HintPath>unstripped_libs\UnityEngine.SubsystemsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainModule">
+			<HintPath>unstripped_libs\UnityEngine.TerrainModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TerrainPhysicsModule">
+			<HintPath>unstripped_libs\UnityEngine.TerrainPhysicsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreFontEngineModule">
+			<HintPath>unstripped_libs\UnityEngine.TextCoreFontEngineModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreTextEngineModule">
+			<HintPath>unstripped_libs\UnityEngine.TextCoreTextEngineModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>unstripped_libs\UnityEngine.TextRenderingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TilemapModule">
+			<HintPath>unstripped_libs\UnityEngine.TilemapModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TLSModule">
+			<HintPath>unstripped_libs\UnityEngine.TLSModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+			<HintPath>unstripped_libs\UnityEngine.UIElementsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>unstripped_libs\UnityEngine.UIModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UmbraModule">
+			<HintPath>unstripped_libs\UnityEngine.UmbraModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsCommonModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityAnalyticsCommonModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityAnalyticsModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityAnalyticsModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityConnectModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityConnectModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityCurlModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityCurlModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityTestProtocolModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityTestProtocolModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestAudioModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityWebRequestModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestTextureModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UnityWebRequestWWWModule">
+			<HintPath>unstripped_libs\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VehiclesModule">
+			<HintPath>unstripped_libs\UnityEngine.VehiclesModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VFXModule">
+			<HintPath>unstripped_libs\UnityEngine.VFXModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VideoModule">
+			<HintPath>unstripped_libs\UnityEngine.VideoModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VirtualTexturingModule">
+			<HintPath>unstripped_libs\UnityEngine.VirtualTexturingModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.VRModule">
+			<HintPath>unstripped_libs\UnityEngine.VRModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.WindModule">
+			<HintPath>unstripped_libs\UnityEngine.WindModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="UnityEngine.XRModule">
+			<HintPath>unstripped_libs\UnityEngine.XRModule.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Unity.Mono" Version="6.0.0-be.*" IncludeAssets="compile" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+		<PackageReference Include="HarmonyX" Version="2.10.2" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if not exist &quot;$(Cities2_Location)\BepInEx\plugins\$(ProjectName)&quot; mkdir &quot;$(Cities2_Location)\BepInEx\plugins\$(ProjectName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(ProjectName).dll&quot; &quot;$(Cities2_Location)\BepInEx\plugins\$(ProjectName)\$(ProjectName).dll&quot;" />
+	</Target>
+</Project>

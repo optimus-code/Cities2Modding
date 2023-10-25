@@ -13,7 +13,7 @@ Welcome to the unofficial modding guide and repository for Cities Skylines 2. Si
 
 ### Setup:
 1. Head over to the official [BepInEx GitHub repository](https://github.com/BepInEx/BepInEx).
-2. Download the latest version that is compatible with Cities Skylines 2.
+2. Download the latest version that is compatible with Cities Skylines 2 (Use the Mono version).
 3. Extract the contents to the root directory of Cities Skylines 2.
 4. Run the game once to ensure that BepInEx initializes and creates its config folder.
 
@@ -22,12 +22,12 @@ Welcome to the unofficial modding guide and repository for Cities Skylines 2. Si
 
 ### Setup:
 1. Navigate to the [HarmonyX GitHub repository](https://github.com/BepInEx/HarmonyX).
-2. Download the appropriate version for your needs.
+2. Download the latest version for .NET Standard 2.1.
 3. Extract and place it in the BepInEx/plugins folder inside your Cities Skylines 2 directory.
 4. Make sure to reference the library when you're creating mods that require method patching.
 
 ## Unity Version & Libraries
-Cities Skylines 2 is developed using Unity version `2022.3.7f1`. In order to mod the game, it's essential to have the appropriate unstripped libraries which provide detailed information about Unity classes and methods.
+Cities Skylines 2 is developed using Unity version `2022.3.7f1`. In order to mod the game, it's essential to have the appropriate unstripped libraries which provide detailed information about Unity classes and methods. It uses .NET Standard 2.1 version of the Mono runtime.
 
 ### Setup:
 1. Download the unstripped libraries for Unity `2022.3.7f1` from this [link](https://unity.bepinex.dev/libraries/2022.3.7.zip).

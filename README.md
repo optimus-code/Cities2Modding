@@ -50,4 +50,6 @@ I have provided an example mod with this configuration, it will need BepInEx 6 s
 ### Developer/Debug Menu:
 In the example mod it forces the developer/debug menu to show, by pressing TAB in the game you can show the menu; which provides lots of useful information:
 
+**Performance Tip:** I have found that the dev menu has a Level of Detail control which allows you to lower the detail further than the default menus would allow, this may make draw distance a lot lower but you can further fine tune performance. I've been able to gain a lot of frames by adjusting this to a value I'm happy with.
+
 ![Developer Menu](Docs/DevMenu.png)

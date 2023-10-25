@@ -4,6 +4,8 @@ using HarmonyLib;
 using System.Reflection;
 using System.Linq;
 using Game.Simulation;
+using Game.Audio;
+using Game;
 
 namespace ExampleMod
 {
@@ -28,12 +30,18 @@ namespace ExampleMod
     /// <summary>
     /// An example patch
     /// </summary>
-    [HarmonyPatch( typeof( SimulationSystem ), "OnCreate" )]
-    class SimulationSystem_OnCreatePatch
+    /// <remarks>
+    /// (So far the best way I've found to determine when the game is fully loaded.)
+    /// </remarks>
+    [HarmonyPatch( typeof( AudioManager ), "OnGameLoadingComplete" )]
+    class AudioManager_OnGameLoadingCompletePatch
     {
-        static void Postfix( )
+        static void Postfix( Colossal.Serialization.Entities.Purpose purpose, GameMode mode )
         {
-            UnityEngine.Debug.Log( "Hello world!!" );
+            if ( !mode.IsGameOrEditor( ) )
+                return;
+
+            UnityEngine.Debug.Log( "Game loaded!" );
         }
     }
 }

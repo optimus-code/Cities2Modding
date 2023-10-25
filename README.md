@@ -40,3 +40,5 @@ Cities Skylines 2 is developed using Unity version `2022.3.7f1`. In order to mod
 **Contribution & Feedback:** We highly appreciate community contributions. Feel free to submit pull requests, create issues, or provide feedback to make this modding guide more comprehensive and user-friendly.
 
 **Disclaimer:** This modding guide and tools are provided "as is" without warranty of any kind. Modding can be risky, always remember to backup your game files before making modifications.
+
+**Note:** I will add a basic project setup soon for Visual Studio.

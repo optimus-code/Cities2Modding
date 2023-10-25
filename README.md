@@ -45,3 +45,9 @@ I have provided an example mod with this configuration, it will need BepInEx 6 s
 **Contribution & Feedback:** We highly appreciate community contributions. Feel free to submit pull requests, create issues, or provide feedback to make this modding guide more comprehensive and user-friendly.
 
 **Disclaimer:** This modding guide and tools are provided "as is" without warranty of any kind. Modding can be risky, always remember to backup your game files before making modifications.
+
+
+### Developer/Debug Menu:
+In the example mod it forces the developer/debug menu to show, by pressing TAB in the game you can show the menu; which provides lots of useful information:
+
+![Developer Menu](Docs/DevMenu.png)

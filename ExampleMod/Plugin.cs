@@ -24,7 +24,7 @@ namespace ExampleMod
             }
         }
     }
-
+    
     /// <summary>
     /// An example patch
     /// </summary>

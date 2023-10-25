@@ -37,8 +37,9 @@ Cities Skylines 2 is developed using Unity version `2022.3.7f1`. In order to mod
 5. Ensure you set Copy to Local to no, you never want to include any libraries the game already is loading.
 6. Include the Colossal Order Cities Skylines 2 game libraries located in <Game Folder>/Cities2_Data/Managed. Game.dll is the core Cities Skylines 2 game code, you'll need that along with the CO dlls. Again ensure copy to local is set to no.
 
+### Example Mod:
+I have provided an example mod with this configuration, it will need BepInEx 6 setup in the game folder, enable the console window in BepInEx config settings. You will need Visual Studio 2022.
+
 **Contribution & Feedback:** We highly appreciate community contributions. Feel free to submit pull requests, create issues, or provide feedback to make this modding guide more comprehensive and user-friendly.
 
 **Disclaimer:** This modding guide and tools are provided "as is" without warranty of any kind. Modding can be risky, always remember to backup your game files before making modifications.
-
-**Note:** I will add a basic project setup soon for Visual Studio.

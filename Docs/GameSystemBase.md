@@ -79,6 +79,7 @@ namespace ExampleMod
 
         protected override void OnUpdate()
         {
+            base.OnUpdate();
         }
     }
 }

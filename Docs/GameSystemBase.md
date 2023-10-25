@@ -64,7 +64,7 @@ Note: As this is decompiled code, there might be missing context, and certain de
 ---
 
 #### Example implementation:
-
+```
 using Unity.Entities;
 using UnityEngine.Scripting;
 
@@ -82,3 +82,4 @@ namespace ExampleMod
         }
     }
 }
+```

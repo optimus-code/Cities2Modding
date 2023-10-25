@@ -6,6 +6,7 @@ using System.Linq;
 using Game.Simulation;
 using Game.Audio;
 using Game;
+using Game.SceneFlow;
 
 namespace ExampleMod
 {
@@ -42,6 +43,28 @@ namespace ExampleMod
                 return;
 
             UnityEngine.Debug.Log( "Game loaded!" );
+        }
+    }
+
+    /// <summary>
+    /// Force enable developer mode
+    /// </summary>
+    /// <remarks>
+    /// (Sometimes get intermittent crashes, not sure why or if it's related to this.)
+    /// </remarks>
+    [HarmonyPatch( typeof( GameManager ), "ParseOptions" )]
+    class GameManager_ParseOptionsPatch
+    {
+        static void Postfix( GameManager __instance )
+        {
+            GameManager.Configuration configuration = __instance.configuration;
+
+            if ( configuration != null )
+            {
+                configuration.developerMode = true;
+
+                UnityEngine.Debug.Log( "Turned on Developer Mode! Press TAB for the dev/debug menu." );
+            }
         }
     }
 }

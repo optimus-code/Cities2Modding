@@ -99,12 +99,20 @@
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Colossal.UI.Binding.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="cohtml.Net">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\cohtml.Net.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Game">
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Game.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
-		<Reference Include="Game">
+		<Reference Include="Unity.Entities">
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Entities.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.InputSystem">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.InputSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="UnityEngine">

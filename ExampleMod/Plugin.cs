@@ -3,10 +3,13 @@ using BepInEx;
 using HarmonyLib;
 using System.Reflection;
 using System.Linq;
-using Game.Simulation;
 using Game.Audio;
 using Game;
 using Game.SceneFlow;
+using Game.Tools;
+using UnityEngine.InputSystem;
+using Game.Prefabs;
+using Unity.Entities;
 
 namespace ExampleMod
 {
@@ -37,12 +40,14 @@ namespace ExampleMod
     [HarmonyPatch( typeof( AudioManager ), "OnGameLoadingComplete" )]
     class AudioManager_OnGameLoadingCompletePatch
     {
-        static void Postfix( Colossal.Serialization.Entities.Purpose purpose, GameMode mode )
+        static void Postfix( AudioManager __instance, Colossal.Serialization.Entities.Purpose purpose, GameMode mode )
         {
             if ( !mode.IsGameOrEditor( ) )
                 return;
 
             UnityEngine.Debug.Log( "Game loaded!" );
+
+            __instance.World.GetOrCreateSystem<ExampleModSystem>( );
         }
     }
 
@@ -65,6 +70,70 @@ namespace ExampleMod
 
                 UnityEngine.Debug.Log( "Turned on Developer Mode! Press TAB for the dev/debug menu." );
             }
+        }
+    }
+
+    public class ExampleModSystem : GameSystemBase
+    {
+        public bool ShowWhiteness
+        {
+            get;
+            private set;
+        } = true;
+
+        protected override void OnCreate( )
+        {
+            base.OnCreate( );
+
+            CreateKeyBinding( );
+
+            UnityEngine.Debug.Log( "ExampleModSystem OnCreate" );
+        }
+
+        protected override void OnUpdate( )
+        {
+        }
+
+        private void CreateKeyBinding()
+        {
+            var inputAction = new InputAction( "ToggleWhiteness" );
+            inputAction.AddCompositeBinding( "ButtonWithOneModifier" )
+                .With( "Modifier", "<Keyboard>/ctrl" )
+                .With( "Button", "<Keyboard>/w" );
+            inputAction.performed += OnToggleWhiteness;
+            inputAction.Enable( );
+        }
+
+        private void ToggleWhiteness()
+        {
+            ShowWhiteness = !ShowWhiteness;
+
+            UnityEngine.Shader.SetGlobalInt( "colossal_InfoviewOn", ShowWhiteness ? 1 : 0 );
+
+            var soundQuery = GetEntityQuery( ComponentType.ReadOnly<ToolUXSoundSettingsData>( ) );
+
+            AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
+
+            UnityEngine.Debug.Log( "Show whiteness set to: " + ShowWhiteness );
+        }
+
+        private void OnToggleWhiteness( InputAction.CallbackContext obj )
+        {
+            ToggleWhiteness( );
+        }
+    }
+
+    [HarmonyPatch( typeof( ToolSystem ), "UpdateInfoviewColors" )]
+    class ToolSystem_UpdateInfoviewColorsPatch
+    {
+        static void Postfix( ToolSystem __instance )
+        {
+            var exampleModSystem = __instance.World.GetExistingSystemManaged<ExampleModSystem>( );
+
+            if ( exampleModSystem == null )
+                return;
+
+            UnityEngine.Shader.SetGlobalInt( "colossal_InfoviewOn", exampleModSystem.ShowWhiteness ? 1 : 0 );
         }
     }
 }

@@ -133,7 +133,8 @@ namespace ExampleMod
             if ( exampleModSystem == null )
                 return;
 
-            UnityEngine.Shader.SetGlobalInt( "colossal_InfoviewOn", exampleModSystem.ShowWhiteness ? 1 : 0 );
+            if ( __instance.activeInfoview != null )
+                UnityEngine.Shader.SetGlobalInt( "colossal_InfoviewOn", exampleModSystem.ShowWhiteness ? 1 : 0 );
         }
     }
 }

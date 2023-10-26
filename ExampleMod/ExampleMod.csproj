@@ -115,6 +115,14 @@
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.InputSystem.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Unity.Mathematics">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Mathematics.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.Collections">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Collections.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="UnityEngine">
 			<HintPath>unstripped_libs\UnityEngine.dll</HintPath>
 			<Private>False</Private>

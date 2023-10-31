@@ -4,6 +4,18 @@ using HarmonyLib;
 using System.Reflection;
 using System.Linq;
 using ExampleMod.Patches;
+using Game.Audio.Radio;
+using static Game.Audio.Radio.Radio;
+using Game.Prefabs;
+using UnityEngine;
+using Game.Areas;
+using Game.Rendering.Debug;
+using Game.UI.Tooltip;
+using System.Collections.Generic;
+using Colossal.IO.AssetDatabase;
+using Game.Rendering;
+using static Colossal.AssetPipeline.Constants.Material;
+using Unity.Burst;
 
 namespace ExampleMod
 {
@@ -24,5 +36,5 @@ namespace ExampleMod
                 Logger.LogInfo( $"Patched method: {patchedMethod.Module.Name}:{patchedMethod.Name}" );
             }
         }
-    }
+    }    
 }

@@ -21,12 +21,6 @@
 	<ItemGroup>
 	  <None Remove="Resources\additiveshader" />
 	  <None Remove="Resources\additiveshader.manifest" />
-	  <None Remove="Resources\additiveshader.manifest.meta" />
-	  <None Remove="Resources\additiveshader.meta" />
-	  <None Remove="Resources\hdrpdecals" />
-	  <None Remove="Resources\hdrpdecals.manifest" />
-	  <None Remove="Resources\hdrpdecals.manifest.meta" />
-	  <None Remove="Resources\hdrpdecals.meta" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -34,12 +28,6 @@
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Resources\additiveshader.manifest">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\additiveshader.manifest.meta">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-	  </EmbeddedResource>
-	  <EmbeddedResource Include="Resources\additiveshader.meta">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	</ItemGroup>

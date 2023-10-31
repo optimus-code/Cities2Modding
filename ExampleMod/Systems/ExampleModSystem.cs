@@ -4,6 +4,10 @@ using Game.Tools;
 using Game;
 using Unity.Entities;
 using UnityEngine.InputSystem;
+using Game.Rendering;
+using System.Linq;
+using cohtml.Net;
+using System.Collections.Generic;
 
 namespace ExampleMod.Systems
 {
@@ -15,6 +19,8 @@ namespace ExampleMod.Systems
             private set;
         } = true;
 
+        private RenderingSystem renderSystem;
+
         protected override void OnCreate( )
         {
             base.OnCreate( );
@@ -22,6 +28,11 @@ namespace ExampleMod.Systems
             CreateKeyBinding( );
 
             World.GetOrCreateSystem<ImageOverlaySystem>( ); // Ensure image overlay system is instantiated
+
+            renderSystem = World.GetExistingSystemManaged<RenderingSystem>( );
+
+            ToggleRoadLaneOverlay( ); // Turn off by default
+            ToggleFPSSaver( ); // Turn on by default
 
             UnityEngine.Debug.Log( "ExampleModSystem OnCreate" );
         }
@@ -44,6 +55,20 @@ namespace ExampleMod.Systems
                 .With( "Modifier", "<Keyboard>/shift" )
                 .With( "Button", "<Keyboard>/a" );
             inputAction.performed += ( a ) => ToggleAnarchy( );
+            inputAction.Enable( );
+
+            inputAction = new InputAction( "RoadLaneOverlayToggle" );
+            inputAction.AddCompositeBinding( "ButtonWithOneModifier" )
+                .With( "Modifier", "<Keyboard>/shift" )
+                .With( "Button", "<Keyboard>/r" );
+            inputAction.performed += ( a ) => ToggleRoadLaneOverlay( );
+            inputAction.Enable( );
+
+            inputAction = new InputAction( "ToggleFPSSaver" );
+            inputAction.AddCompositeBinding( "ButtonWithOneModifier" )
+                .With( "Modifier", "<Keyboard>/shift" )
+                .With( "Button", "<Keyboard>/f" );
+            inputAction.performed += ( a ) => ToggleFPSSaver( );
             inputAction.Enable( );
         }
 
@@ -72,6 +97,33 @@ namespace ExampleMod.Systems
 
             var soundQuery = GetEntityQuery( ComponentType.ReadOnly<ToolUXSoundSettingsData>( ) );
             AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
+        }
+
+        private void ToggleRoadLaneOverlay( )
+        {
+            ToggleShader( "BH/Decals/CurvedDecalDeteriorationShader" );
+
+            var soundQuery = GetEntityQuery( ComponentType.ReadOnly<ToolUXSoundSettingsData>( ) );
+            AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
+        }
+
+        private void ToggleFPSSaver( )
+        {
+            // Makes characters bald
+            ToggleShader( "BH/Characters/SG_HairCardsDyed" );
+
+            var soundQuery = GetEntityQuery( ComponentType.ReadOnly<ToolUXSoundSettingsData>( ) );
+            AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
+        }
+
+        private void ToggleShader( string shaderName )
+        {
+            var renderSystem = World.GetExistingSystemManaged<RenderingSystem>( );
+            var roadShader = renderSystem.enabledShaders.Where( e => e.Value && e.Key.name == shaderName ).FirstOrDefault( );
+
+            var isEnabled = renderSystem.IsShaderEnabled( roadShader.Key );
+
+            renderSystem.SetShaderEnabled( roadShader.Key, !isEnabled );
         }
     }
 }

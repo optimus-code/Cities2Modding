@@ -17,6 +17,32 @@
 	<PropertyGroup>
 		<Cities2_Location>G:\SteamLibrary\steamapps\common\Cities Skylines II</Cities2_Location>
 	</PropertyGroup>
+	
+	<ItemGroup>
+	  <None Remove="Resources\additiveshader" />
+	  <None Remove="Resources\additiveshader.manifest" />
+	  <None Remove="Resources\additiveshader.manifest.meta" />
+	  <None Remove="Resources\additiveshader.meta" />
+	  <None Remove="Resources\hdrpdecals" />
+	  <None Remove="Resources\hdrpdecals.manifest" />
+	  <None Remove="Resources\hdrpdecals.manifest.meta" />
+	  <None Remove="Resources\hdrpdecals.meta" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\additiveshader">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\additiveshader.manifest">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\additiveshader.manifest.meta">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\additiveshader.meta">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="Colossal.AssetPipeline">
@@ -121,6 +147,14 @@
 		</Reference>
 		<Reference Include="Unity.Collections">
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Collections.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.Burst">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Burst.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="UnityEngine">

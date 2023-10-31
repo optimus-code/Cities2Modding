@@ -2,38 +2,38 @@
 using HarmonyLib;
 using static Game.Audio.Radio.Radio;
 
-namespace ExampleMod
+namespace ExampleMod.Patches
 {
     //
     // Disables all radio clips other than Playlist items (Music related)
     //
 
-    [HarmonyPatch( typeof( Radio ), "QueueEmergencyClips" )]
+    [HarmonyPatch(typeof(Radio), "QueueEmergencyClips")]
     class Radio_QueueEmergencyClipsPatch
     {
-        static bool Prefix( )
+        static bool Prefix()
         {
             return false;
         }
     }
 
-    [HarmonyPatch( typeof( Radio ), "QueueEmergencyIntroClip" )]
+    [HarmonyPatch(typeof(Radio), "QueueEmergencyIntroClip")]
     class Radio_QueueEmergencyIntroClipPatch
     {
-        static bool Prefix( )
+        static bool Prefix()
         {
             return false;
         }
     }
 
-    [HarmonyPatch( typeof( Radio ), "QueueClip" )]
+    [HarmonyPatch(typeof(Radio), "QueueClip")]
     class Radio_QueueClipPatch
     {
-        static bool Prefix( Radio.ClipInfo clip, bool pushToFront )
+        static bool Prefix(ClipInfo clip, bool pushToFront)
         {
-            if ( clip.m_SegmentType != SegmentType.Playlist )
+            if (clip.m_SegmentType != SegmentType.Playlist)
             {
-                UnityEngine.Debug.Log( "Skipped radio clip: " + clip.m_SegmentType.ToString( ) );
+                UnityEngine.Debug.Log("Skipped radio clip: " + clip.m_SegmentType.ToString());
                 return false;
             }
 

@@ -246,7 +246,7 @@ namespace ExampleMod.Systems
         private Shader LoadAssetBundle( )
         {
             var assembly = Assembly.GetExecutingAssembly( );
-            using ( Stream stream = assembly.GetManifestResourceStream( "ExampleMod.Resources.additiveshader" ) )
+            using ( var stream = assembly.GetManifestResourceStream( "ExampleMod.Resources.additiveshader" ) )
             {
                 if ( stream == null )
                 {
@@ -254,24 +254,24 @@ namespace ExampleMod.Systems
                     return null;
                 }
 
-                byte[] assetBytes = new byte[stream.Length];
+                var assetBytes = new byte[stream.Length];
                 stream.Read( assetBytes, 0, assetBytes.Length );
 
-                AssetBundle myLoadedAssetBundle = AssetBundle.LoadFromMemory( assetBytes );
+                var myLoadedAssetBundle = AssetBundle.LoadFromMemory( assetBytes );
                 if ( myLoadedAssetBundle == null )
                 {
                     Debug.LogError( "Failed to load AssetBundle from memory." );
                     return null;
                 }
 
-                string[] assetNames = myLoadedAssetBundle.GetAllAssetNames( );
-                foreach ( string name in assetNames )
+                var assetNames = myLoadedAssetBundle.GetAllAssetNames( );
+                foreach ( var name in assetNames )
                 {
                     Debug.Log( name );
                 }
 
                 // Load an asset from the bundle
-                Shader loadedShader = myLoadedAssetBundle.LoadAsset<Shader>( "assets/customoverlay.shader" );
+                var loadedShader = myLoadedAssetBundle.LoadAsset<Shader>( "assets/customoverlay.shader" );
 
                 if ( loadedShader == null )
                 {
@@ -288,8 +288,8 @@ namespace ExampleMod.Systems
             var waterSystem = World.GetExistingSystemManaged<WaterSystem>( );
             var terrainSystem = World.GetExistingSystemManaged<TerrainSystem>( );
 
-            TerrainHeightData heightData = terrainSystem.GetHeightData( );
-            WaterSurfaceData surfaceData = waterSystem.GetSurfaceData( out _ );
+            var heightData = terrainSystem.GetHeightData( );
+            var surfaceData = waterSystem.GetSurfaceData( out _ );
             return ( float ) WaterUtils.SampleHeight( ref surfaceData, ref heightData, Vector3.zero );
         }
     }    

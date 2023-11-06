@@ -6,11 +6,12 @@ using Unity.Entities;
 using UnityEngine.InputSystem;
 using Game.Rendering;
 using System.Linq;
-using cohtml.Net;
-using System.Collections.Generic;
 
 namespace ExampleMod.Systems
 {
+    /// <summary>
+    /// Just an example mod system with a few mods.
+    /// </summary>
     public class ExampleModSystem : GameSystemBase
     {
         public bool ShowWhiteness
@@ -41,6 +42,10 @@ namespace ExampleMod.Systems
         {
         }
 
+        /// <summary>
+        /// This is just a basic Unity Input setup, ideally we'd like to 
+        /// integrate directly with the games native systems. Needs research.
+        /// </summary>
         private void CreateKeyBinding( )
         {
             var inputAction = new InputAction( "ToggleWhiteness" );
@@ -72,6 +77,13 @@ namespace ExampleMod.Systems
             inputAction.Enable( );
         }
 
+        /// <summary>
+        /// Toggle the infomode whiteness mode overlay. (CTRL+W)
+        /// </summary>
+        /// <remarks>
+        /// (Has some issues that occur due to overriding, usually can be solved by 
+        /// toggling it off and re-selecting the info mode desired.)
+        /// </remarks>
         private void ToggleWhiteness( )
         {
             ShowWhiteness = !ShowWhiteness;
@@ -90,6 +102,9 @@ namespace ExampleMod.Systems
             ToggleWhiteness( );
         }
 
+        /// <summary>
+        /// Toggle the ignore validation errors option (SHIFT+A)
+        /// </summary>
         private void ToggleAnarchy( )
         {
             var toolSystem = World.GetExistingSystemManaged<ToolSystem>( );
@@ -99,6 +114,9 @@ namespace ExampleMod.Systems
             AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
         }
 
+        /// <summary>
+        /// Toggle the white overlay for road lanes. (SHIFT+R)
+        /// </summary>
         private void ToggleRoadLaneOverlay( )
         {
             ToggleShader( "BH/Decals/CurvedDecalDeteriorationShader" );
@@ -107,6 +125,12 @@ namespace ExampleMod.Systems
             AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
         }
 
+        /// <summary>
+        /// Action for toggling some FPS saving utilities. (SHIFT+F)
+        /// </summary>
+        /// <remarks>
+        /// (Can be expanded later.)
+        /// </remarks>
         private void ToggleFPSSaver( )
         {
             // Makes characters bald
@@ -116,6 +140,10 @@ namespace ExampleMod.Systems
             AudioManager.instance.PlayUISound( soundQuery.GetSingleton<ToolUXSoundSettingsData>( ).m_TutorialStartedSound );
         }
 
+        /// <summary>
+        /// Helper function for toggling a shader
+        /// </summary>
+        /// <param name="shaderName"></param>
         private void ToggleShader( string shaderName )
         {
             var renderSystem = World.GetExistingSystemManaged<RenderingSystem>( );

@@ -4,6 +4,10 @@ using HarmonyLib;
 
 namespace ExampleMod.Patches
 {
+    /// <summary>
+    /// Adds support for our custom toggle whiteness command
+    /// to the tool system.
+    /// </summary>
     [HarmonyPatch( typeof( ToolSystem ), "UpdateInfoviewColors" )]
     class ToolSystem_UpdateInfoviewColorsPatch
     {

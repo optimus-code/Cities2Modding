@@ -18,7 +18,6 @@ namespace ExampleMod.Systems
     /// Overrides tree growth system so trees skip to adult phase ASAP.
     /// The adult phase lasts as long as child-elder would last usually.
     /// </summary>
-    /// 
     [HarmonyPatch( typeof( TreeGrowthSystem ), "OnCreate" )]
     public class TreeGrowthSystem_OnCreatePatch
     {
@@ -84,7 +83,7 @@ namespace ExampleMod.Systems
         [UnityEngine.Scripting.Preserve]
         protected override void OnUpdate( )
         {            
-            uint updateFrame = SimulationUtils.GetUpdateFrame( m_SimulationSystem.frameIndex, 32, 16 );
+            var updateFrame = SimulationUtils.GetUpdateFrame( m_SimulationSystem.frameIndex, 32, 16 );
 
             m_TreeQuery.ResetFilter( );            
             m_TreeQuery.SetSharedComponentFilter<UpdateFrame>( new UpdateFrame( updateFrame ) );
@@ -94,7 +93,7 @@ namespace ExampleMod.Systems
             __TypeHandle.__Game_Objects_Tree_RW_ComponentTypeHandle.Update( ref CheckedStateRef );
             __TypeHandle.__Unity_Entities_Entity_TypeHandle.Update( ref CheckedStateRef );
 
-            JobHandle producerJob = new TreeGrowthSystem_Custom.TreeGrowthJob( )
+            var producerJob = new TreeGrowthSystem_Custom.TreeGrowthJob( )
             {
                 m_EntityType = __TypeHandle.__Unity_Entities_Entity_TypeHandle,
                 m_TreeType = __TypeHandle.__Game_Objects_Tree_RW_ComponentTypeHandle,
@@ -144,24 +143,24 @@ namespace ExampleMod.Systems
               in v128 chunkEnabledMask )
             {
                 
-                NativeArray<Entity> nativeArray1 = chunk.GetNativeArray( m_EntityType );
+                var nativeArray1 = chunk.GetNativeArray( m_EntityType );
                 
-                NativeArray<Tree> nativeArray2 = chunk.GetNativeArray<Tree>( ref m_TreeType );
+                var nativeArray2 = chunk.GetNativeArray<Tree>( ref m_TreeType );
                 
-                NativeArray<Destroyed> nativeArray3 = chunk.GetNativeArray<Destroyed>( ref m_DestroyedType );
+                var nativeArray3 = chunk.GetNativeArray<Destroyed>( ref m_DestroyedType );
                 
-                NativeArray<Damaged> nativeArray4 = chunk.GetNativeArray<Damaged>( ref m_DamagedType );
+                var nativeArray4 = chunk.GetNativeArray<Damaged>( ref m_DamagedType );
                 
-                Random random = m_RandomSeed.GetRandom( unfilteredChunkIndex );
+                var random = m_RandomSeed.GetRandom( unfilteredChunkIndex );
                 if ( nativeArray3.Length != 0 )
                 {
-                    for ( int index = 0; index < nativeArray2.Length; ++index )
+                    for ( var index = 0; index < nativeArray2.Length; ++index )
                     {
-                        Tree tree = nativeArray2[index];
-                        Destroyed destroyed = nativeArray3[index];
+                        var tree = nativeArray2[index];
+                        var destroyed = nativeArray3[index];
                         if ( TickTree( ref tree, ref destroyed, ref random ) )
                         {
-                            Entity e = nativeArray1[index];
+                            var e = nativeArray1[index];
                             
                             m_CommandBuffer.AddComponent<BatchesUpdated>( unfilteredChunkIndex, e, new BatchesUpdated( ) );
                             
@@ -175,14 +174,14 @@ namespace ExampleMod.Systems
                 }
                 else if ( nativeArray4.Length != 0 )
                 {
-                    for ( int index = 0; index < nativeArray2.Length; ++index )
+                    for ( var index = 0; index < nativeArray2.Length; ++index )
                     {
-                        Tree tree = nativeArray2[index];
-                        Damaged damaged = nativeArray4[index];
+                        var tree = nativeArray2[index];
+                        var damaged = nativeArray4[index];
                         bool stateChanged;
                         if ( TickTree( ref tree, ref damaged, ref random, out stateChanged ) )
                         {
-                            Entity e = nativeArray1[index];
+                            var e = nativeArray1[index];
                             
                             m_CommandBuffer.AddComponent<BatchesUpdated>( unfilteredChunkIndex, e, new BatchesUpdated( ) );
                             
@@ -199,9 +198,9 @@ namespace ExampleMod.Systems
                 }
                 else
                 {
-                    for ( int index = 0; index < nativeArray2.Length; ++index )
+                    for ( var index = 0; index < nativeArray2.Length; ++index )
                     {
-                        Tree tree = nativeArray2[index];
+                        var tree = nativeArray2[index];
                         if ( TickTree( ref tree, ref random ) )
                         {
                             
@@ -301,7 +300,7 @@ namespace ExampleMod.Systems
 
             private bool TickAdult( ref Tree tree, ref Random random )
             {
-                int num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_ADULT ) >> 8 );
+                var num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_ADULT ) >> 8 );
                 if ( num < 256 )
                 {
                     tree.m_Growth = ( byte ) num;
@@ -314,7 +313,7 @@ namespace ExampleMod.Systems
 
             private bool TickElderly( ref Tree tree, ref Random random )
             {
-                int num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_ELDERLY ) >> 8 );
+                var num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_ELDERLY ) >> 8 );
                 if ( num < 256 )
                 {
                     tree.m_Growth = ( byte ) num;
@@ -327,7 +326,7 @@ namespace ExampleMod.Systems
 
             private bool TickDead( ref Tree tree, ref Random random )
             {
-                int num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_DEAD ) >> 8 );
+                var num = ( int ) tree.m_Growth + ( random.NextInt( TICK_SPEED_DEAD ) >> 8 );
                 if ( num < 256 )
                 {
                     tree.m_Growth = ( byte ) num;

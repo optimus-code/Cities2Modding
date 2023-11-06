@@ -7,14 +7,14 @@ namespace ExampleMod.Patches
     /// Force enable developer mode
     /// </summary>
     /// <remarks>
-    /// This can bypass achievement so the unlock tool gives you achievements I think?
+    /// (This can bypass achievement so the unlock tool gives you achievements I think?)
     /// </remarks>
     [HarmonyPatch( typeof( GameManager ), "ParseOptions" )]
     class GameManager_ParseOptionsPatch
     {
         static void Postfix( GameManager __instance )
         {
-            GameManager.Configuration configuration = __instance.configuration;
+            var configuration = __instance.configuration;
 
             if ( configuration != null )
             {

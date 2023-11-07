@@ -11,8 +11,42 @@ function windowCloseExecute(element) {
     engine.trigger('OnWindowCloseClick', windowId);
 }
 
+function reloadImageOverlayExecute() {
+    engine.trigger('OnReloadImageOverlayClick');
+}
+
+function reloadImageOverlaySource() {
+    var image = document.getElementById("image-overlay");
+    image.src = ''; // Clear out to ensure it retriggers
+    image.src = 'examplemod://overlay.png';
+}
+
 // If it already exists dont load or execute it
 if (typeof enableDrag !== 'function') {
+    function positionTooltip(element, tooltip) {
+        const elementRect = element.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+
+        // Default positions
+        let top = elementRect.bottom + window.scrollY;
+        let left = elementRect.left + window.scrollX;
+
+        // Check horizontal space
+        if (elementRect.left + tooltip.offsetWidth > viewportWidth) {
+            left = elementRect.right - tooltip.offsetWidth + window.scrollX;
+        }
+
+        // Check vertical space
+        if (elementRect.bottom + tooltip.offsetHeight > viewportHeight) {
+            top = elementRect.top - tooltip.offsetHeight + window.scrollY;
+        }
+
+        // Apply the calculated position
+        tooltip.style.top = `${top}px`;
+        tooltip.style.left = `${left}px`;
+    }
+
     function enableDrag() {
         // Select all the titlebars within the custom-panel class
         const titleBars = document.querySelectorAll('.custom-panel .custom-panel-titlebar');
@@ -60,6 +94,22 @@ if (typeof enableDrag !== 'function') {
                 dragElement.style.top = `${newTop}px`;
                 dragElement.style.left = `${newLeft}px`;
             }
+        });
+
+        // Setup tooltips
+        const tooltipTriggers = document.querySelectorAll('.custom-tooltip-trigger');
+
+        tooltipTriggers.forEach(tooltipTrigger => {
+            tooltipTrigger.addEventListener('mouseover', function () {
+                var tooltipID = this.getAttribute('data-tooltip-trigger');
+                var tooltip = document.getElementById(tooltipID);
+                positionTooltip(this, tooltip);
+                tooltip.classList.add('visible');
+            });
+            tooltipTrigger.addEventListener('mouseout', function () {
+                var tooltipID = this.getAttribute('data-tooltip-trigger');
+                document.getElementById(tooltipID).classList.remove('visible');
+            });
         });
     }
 
@@ -118,6 +168,9 @@ function LoadExampleMod() {
 
     button = document.getElementById("potato-button");
     button.onclick = potatoButtonExecute;
+
+    button = document.getElementById("reload-image-button");
+    button.onclick = reloadImageOverlayExecute;
 }
 
 LoadExampleMod();

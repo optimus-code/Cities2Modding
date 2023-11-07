@@ -275,3 +275,151 @@
     {
         text-transform: uppercase;
     }
+
+.custom-code
+{
+    font-family: "Perfect DOS VGA 437";
+    font-size: 18px;
+}
+
+.custom-highlight
+{
+    color: var(--normalTextColorHighlight);
+}
+
+span.custom-highlight
+{
+    display: inline;
+}
+
+.custom-tooltip
+{
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    max-width: 400rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition-property: opacity, transform;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
+    height: auto;
+    text-transform: none;
+    white-space: normal;
+    z-index: 999999;
+}
+
+    .custom-tooltip.visible
+    {
+        opacity: 1;
+    }
+
+    .custom-tooltip > .custom-tooltip-bg
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        background-color: var(--tooltipColor);
+        filter: var(--tooltipFilter);
+        border-top-left-radius: 4rem 4rem;
+        border-top-right-radius: 4rem 4rem;
+        border-bottom-left-radius: 4rem 4rem;
+        border-bottom-right-radius: 4rem 4rem;
+    }
+
+.custom-tooltip-bg.baloon
+{
+    background-color: var(--balloonColor);
+}
+
+.custom-tooltip > .custom-tooltip-container
+{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    font-size: var(--fontSizeS);
+    color: var(--textColorDim);
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+.custom-tooltip-container > .custom-tooltip-content
+{
+    background-color: var(--tooltipColor);
+    border-top-left-radius: 2rem 2rem;
+    border-top-right-radius: 2rem 2rem;
+    border-bottom-left-radius: 2rem 2rem;
+    border-bottom-right-radius: 2rem 2rem;
+    padding-top: 5rem;
+    padding-left: 8rem;
+    padding-right: 8rem;
+    padding-bottom: 7rem;
+}
+
+.custom-tooltip-content > .title
+{
+    color: var(--textColor);
+    font-size: var(--fontSizeS);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.custom-tooltip-content > .description
+{
+    margin-top: 3.5rem;
+    line-height: 130%;
+    font-size: var(--fontSizeS);
+}
+
+.key-shortcut-row
+{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-items: stretch;
+    justify-content: space-around;
+    font-size: 16px;
+    width: 85%;
+    margin-top: 4rem;
+}
+
+    .key-shortcut-row > div
+    {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 6rem;
+        padding-left: 6rem;
+        padding-right: 6rem;
+        padding-bottom: 6rem;
+    }
+
+.key-shortcut
+{
+    border-style: solid;
+    border-top-width: var(--stroke3);
+    border-left-width: var(--stroke3);
+    border-bottom-width: var(--stroke3);
+    border-right-width: var(--stroke3);
+    border-top-left-radius: 15rem;
+    border-top-right-radius: 15rem;
+    border-bottom-left-radius: 15rem;
+    border-bottom-right-radius: 15rem;
+    border-color: rgba(255, 255, 255, .5);
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, .5);
+    font-weight: bold;
+    font-family: "Perfect DOS VGA 437";
+}
+
+.mt-4
+{
+    margin-top: 4rem;
+}

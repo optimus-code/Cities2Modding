@@ -153,6 +153,10 @@
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Cohtml.RenderingBackend">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Cohtml.RenderingBackend.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="UnityEngine">
 			<HintPath>unstripped_libs\UnityEngine.dll</HintPath>
 			<Private>False</Private>

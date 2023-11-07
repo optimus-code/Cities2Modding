@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
 using Unity.Mathematics;
+using ExampleMod.UI;
 
 namespace ExampleMod.Systems
 {
@@ -121,6 +122,19 @@ namespace ExampleMod.Systems
             overlayTexture = new Texture2D( 1, 1, TextureFormat.ARGB32, false );
             overlayTexture.LoadImage( File.ReadAllBytes( path ) );
             overlayTexture.Apply( );
+
+            ImageHelper.AddOrUpdate( ImageOverlay, "overlay.png" );
+
+            Debug.Log( "Loaded image: overlay.png" );
+        }
+
+
+        public void ReloadImage()
+        {
+            InitialiseImageOverlay( );
+
+            if ( overlayTexture != null && renderer != null )
+                renderer.material.mainTexture = overlayTexture;
         }
 
         private void CheckForOverlayChange()
@@ -131,10 +145,7 @@ namespace ExampleMod.Systems
 
             if ( fileInfo.Exists && ( overlayTexture != null && fileInfo.LastWriteTime > lastOverlayCheck || overlayTexture == null ) )
             {
-                InitialiseImageOverlay( );
-
-                if ( overlayTexture != null && renderer != null )
-                    renderer.material.mainTexture = overlayTexture;
+                ReloadImage( );
             }
         }
 

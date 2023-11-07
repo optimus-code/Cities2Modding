@@ -9,6 +9,7 @@ using Game.Audio;
 using Game.Prefabs;
 using Unity.Entities;
 using System.Collections.Generic;
+using ExampleMod.UI;
 
 namespace ExampleMod.Systems
 {
@@ -32,10 +33,12 @@ namespace ExampleMod.Systems
             { "custom-window2", true },
         };
 
+        private ImageOverlaySystem imageOverlaySystem;
+
         protected override void OnCreate( )
         {
             base.OnCreate( );
-
+                        
             GetUIView( );
 
             SetupTestEventListener( );
@@ -47,6 +50,8 @@ namespace ExampleMod.Systems
             LoadEmbeddedJS( "ui.js" );
 
             soundQuery = GetEntityQuery( ComponentType.ReadOnly<ToolUXSoundSettingsData>( ) ).GetSingleton<ToolUXSoundSettingsData>( );
+
+            imageOverlaySystem = World.GetExistingSystemManaged<ImageOverlaySystem>( );
 
             UnityEngine.Debug.Log( "ExampleUISystem OnCreate" );
         }
@@ -84,7 +89,7 @@ namespace ExampleMod.Systems
                 return;
 
             // Create the JavaScript code
-            var js = $"var div = document.createElement('div'); div.innerHTML = atob('{ToBase64( html )}'); document.getElementsByClassName('{container}')[0].appendChild(div);";
+            var js = $"var div = document.createElement('div'); div.innerHTML = atob('{ToBase64( html )}'); document.body.appendChild(div);";
 
             ExecuteJS( js );
 
@@ -242,6 +247,7 @@ namespace ExampleMod.Systems
             uiView?.RegisterForEvent( "OnPotatoButtonClick", OnPotatoButtonClick );
             uiView?.RegisterForEvent( "OnExampleButtonClick", OnExampleButtonClick );
             uiView?.RegisterForEvent( "OnWindowCloseClick", OnWindowCloseClick );
+            uiView?.RegisterForEvent( "OnReloadImageOverlayClick", OnReloadImageOverlayClick );
             UnityEngine.Debug.Log( "SetupTestEventListeners" );
         }
 
@@ -278,8 +284,17 @@ namespace ExampleMod.Systems
             windowVisibility[elementID] = false;
 
             ExecuteJS( @"hideCustomWindow('" + elementID + "');" );
-
             PlaySound( );
+        }
+
+        /// <summary>
+        /// Button was clicked to refresh image overlay
+        /// </summary>
+        private void OnReloadImageOverlayClick()
+        {
+            imageOverlaySystem.ReloadImage( );
+            ExecuteJS( "setTimeout(function(){ reloadImageOverlaySource(); },1500);" );
+            UnityEngine.Debug.Log( "Reloaded image overlay!!" );
         }
     }
 }

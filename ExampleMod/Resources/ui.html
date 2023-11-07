@@ -7,7 +7,7 @@
                     <div class="custom-panel-title">
                         <div class="custom-label-container">
                             <div class="custom-label">
-                                Example Window
+                                Image Overlay Mod                                
                             </div>
                         </div>
                     </div>
@@ -18,11 +18,19 @@
             </div>
             <div class="custom-panel-body">
                 <div class="custom-description">
-                    Hello world! This is an example of a custom window panel.
+                    Overlay an image onto the map. Black shows as transparent.
+                </div>
+                <div class="custom-section">
+                    <button class="custom-button custom-tooltip-trigger" style="margin-top: 4rem;" data-tooltip-trigger="tooltip1">
+                        Keyboard shortcuts
+                    </button>
                 </div>
                 <div class="custom-section dark">
-                    <div class="custom-label upper">Some GIF content...</div>
-                    <img style="width: 100%;" src="https://giffiles.alphacoders.com/209/209533.gif"/>
+                    <div class="custom-label upper">Image</div>
+                    <img id="image-overlay" style="width: 256px; height: 256px;" src="examplemod://overlay.png" />
+                    <button id="reload-image-button" class="custom-button custom-tooltip-trigger" style="margin-top: 4rem;" data-tooltip-trigger="tooltip2">
+                        Reload image                        
+                    </button>
                 </div>
             </div>
             <div class="custom-panel-footer">
@@ -64,6 +72,89 @@
                         Click Me
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tooltip1" class="custom-tooltip">
+    <div class="custom-tooltip-bg"></div>
+    <div class="custom-tooltip-container">
+        <div class="custom-tooltip-content" style="min-width: 400px;">
+            <div class="title">
+                Keyboard shortcuts
+            </div>
+            <div class="description" style="padding: 4rem;">
+                <div class="mt-4">
+                    Toggle Overlay
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">CTRL</div>
+                    <div>+</div>
+                    <div class="key-shortcut">I</div>
+                </div>
+                <div class="mt-4">
+                    Increase Height
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">CTRL</div>
+                    <div>+</div>
+                    <div class="key-shortcut">=</div>
+                </div>
+                <div class="mt-4">
+                    Decrease Height
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">CTRL</div>
+                    <div>+</div>
+                    <div class="key-shortcut">-</div>
+                </div>
+                <div class="mt-4">
+                    Increase Size
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">SHIFT</div>
+                    <div>+</div>
+                    <div class="key-shortcut">=</div>
+                </div>
+                <div class="mt-4">
+                    Decrease Size
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">SHIFT</div>
+                    <div>+</div>
+                    <div class="key-shortcut">-</div>
+                </div>
+                <div class="mt-4">
+                    Increase Opacity
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">ALT</div>
+                    <div>+</div>
+                    <div class="key-shortcut">=</div>
+                </div>
+                <div class="mt-4">
+                    Decrease Opacity
+                </div>
+                <div class="key-shortcut-row">
+                    <div class="key-shortcut">ALT</div>
+                    <div>+</div>
+                    <div class="key-shortcut">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tooltip2" class="custom-tooltip">
+    <div class="custom-tooltip-bg"></div>
+    <div class="custom-tooltip-container">
+        <div class="custom-tooltip-content">
+            <div class="title">
+                Reload image
+            </div>
+            <div class="description">
+                Reload the image used for the image overlay mod. Image is located in the plugin folder, name it overlay.png.
             </div>
         </div>
     </div>

@@ -6,6 +6,8 @@ using Unity.Entities;
 using UnityEngine.InputSystem;
 using Game.Rendering;
 using System.Linq;
+using cohtml.Net;
+using Game.SceneFlow;
 
 namespace ExampleMod.Systems
 {
@@ -21,6 +23,7 @@ namespace ExampleMod.Systems
         } = true;
 
         private RenderingSystem renderSystem;
+        private ExampleUISystem exampleUISystem;
 
         protected override void OnCreate( )
         {
@@ -31,6 +34,7 @@ namespace ExampleMod.Systems
             World.GetOrCreateSystem<ImageOverlaySystem>( ); // Ensure image overlay system is instantiated
 
             renderSystem = World.GetExistingSystemManaged<RenderingSystem>( );
+            exampleUISystem = World.GetOrCreateSystemManaged<ExampleUISystem>( );
 
             ToggleRoadLaneOverlay( ); // Turn off by default
             ToggleFPSSaver( ); // Turn on by default

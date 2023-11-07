@@ -21,6 +21,9 @@
 	<ItemGroup>
 	  <None Remove="Resources\additiveshader" />
 	  <None Remove="Resources\additiveshader.manifest" />
+	  <None Remove="Resources\ui.css" />
+	  <None Remove="Resources\ui.html" />
+	  <None Remove="Resources\ui.js" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -30,6 +33,11 @@
 	  <EmbeddedResource Include="Resources\additiveshader.manifest">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\ui.css">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Resources\ui.html" />
+	  <EmbeddedResource Include="Resources\ui.js" />
 	</ItemGroup>
 
 	<ItemGroup>

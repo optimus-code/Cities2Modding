@@ -6,8 +6,9 @@ function potatoButtonExecute() {
     engine.trigger('OnPotatoButtonClick');
 }
 
-function windowCloseExecute(elementID) {
-    engine.trigger('OnWindowCloseClick', elementID);
+function windowCloseExecute(element) {
+    var windowId = element.getAttribute('data-window-id');
+    engine.trigger('OnWindowCloseClick', windowId);
 }
 
 // If it already exists dont load or execute it
@@ -88,9 +89,8 @@ if (typeof setupCustomWindows !== 'function') {
         if (closeButtons && closeButtons.length > 0) {
             for (var i = 0; i < closeButtons.length; i++) {
                 var closeButton = closeButtons[i];
-                var windowId = closeButton.getAttribute('data-window-id');
                 closeButton.onclick = function () {
-                    windowCloseExecute(windowId);
+                    windowCloseExecute(this);
                 }
             }
         }

@@ -6,8 +6,9 @@ using Unity.Entities;
 using UnityEngine.InputSystem;
 using Game.Rendering;
 using System.Linq;
-using cohtml.Net;
-using Game.SceneFlow;
+using UnityEngine;
+using ExampleMod.MonoBehaviours;
+using Game.Simulation;
 
 namespace ExampleMod.Systems
 {
@@ -39,6 +40,8 @@ namespace ExampleMod.Systems
             ToggleRoadLaneOverlay( ); // Turn off by default
             ToggleFPSSaver( ); // Turn on by default
 
+            CreateFPSController( );
+            
             UnityEngine.Debug.Log( "ExampleModSystem OnCreate" );
         }
 
@@ -79,6 +82,17 @@ namespace ExampleMod.Systems
                 .With( "Button", "<Keyboard>/f" );
             inputAction.performed += ( a ) => ToggleFPSSaver( );
             inputAction.Enable( );
+        }
+
+        private void CreateFPSController()
+        {
+            var existing = GameObject.Find( "CustomFPSController" );
+
+            if ( existing == null )
+            {
+                var controller = new GameObject( "CustomFPSController" ).AddComponent<FPSController>( );
+                controller.AssignSystems( World.GetOrCreateSystemManaged<TerrainSystem>( ), World.GetOrCreateSystemManaged<CameraUpdateSystem>( ), exampleUISystem );
+            }
         }
 
         /// <summary>

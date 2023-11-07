@@ -9,7 +9,9 @@ using Game.Audio;
 using Game.Prefabs;
 using Unity.Entities;
 using System.Collections.Generic;
-using ExampleMod.UI;
+using Game.Common;
+using Game.Tools;
+using Game.Rendering;
 
 namespace ExampleMod.Systems
 {
@@ -119,18 +121,61 @@ namespace ExampleMod.Systems
         /// Load CSS from a URL
         /// </summary>
         /// <param name="url">The URL of the CSS file</param>
-        public void LoadCSSFromURL( string url )
+        /// <param name="integrity"></param>
+        /// <param name="crossorigin"></param>
+        public void LoadCSSFromURL( string url, string integrity = null, string crossorigin = null )
         {
-            // Create the JavaScript code to append the CSS link to the head
-            var js = $"var link = document.createElement('link'); " +
-                     $"link.type = 'text/css'; " +
-                     $"link.rel = 'stylesheet'; " +
-                     $"link.href = '{url}'; " +
-                     $"document.head.appendChild(link);";
+            // Create the JavaScript code to append the CSS link to the head with optional attributes
+            var js = $"var link = document.createElement('link');" +
+                     $"link.type = 'text/css';" +
+                     $"link.rel = 'stylesheet';" +
+                     $"link.href = '{url}';";
+
+            if ( !string.IsNullOrEmpty( integrity ) )
+            {
+                js += $"link.integrity = '{integrity}';";
+            }
+
+            if ( !string.IsNullOrEmpty( crossorigin ) )
+            {
+                js += $"link.crossOrigin = '{crossorigin}';";
+            }
+
+            js += "document.head.appendChild(link);";
 
             ExecuteJS( js );
 
             UnityEngine.Debug.Log( "LoadCSSFromURL: " + url );
+        }
+
+        /// <summary>
+        /// Load JavaScript from a URL
+        /// </summary>
+        /// <param name="url">The URL of the JavaScript file</param>
+        /// <param name="integrity"></param>
+        /// <param name="crossorigin"></param>
+        public void LoadJSFromURL( string url, string integrity = null, string crossorigin = null )
+        {
+            // Create the JavaScript code to append the script to the body with optional attributes
+            var js = $"var script = document.createElement('script');" +
+                     $"script.type = 'text/javascript';" +
+                     $"script.src = '{url}';";
+
+            if ( !string.IsNullOrEmpty( integrity ) )
+            {
+                js += $"script.integrity = '{integrity}';";
+            }
+
+            if ( !string.IsNullOrEmpty( crossorigin ) )
+            {
+                js += $"script.crossOrigin = '{crossorigin}';";
+            }
+
+            js += "document.body.appendChild(script);";
+
+            ExecuteJS( js );
+
+            UnityEngine.Debug.Log( "LoadJSFromURL: " + url );
         }
 
         /// <summary>
@@ -295,6 +340,23 @@ namespace ExampleMod.Systems
             imageOverlaySystem.ReloadImage( );
             ExecuteJS( "setTimeout(function(){ reloadImageOverlaySource(); },1500);" );
             UnityEngine.Debug.Log( "Reloaded image overlay!!" );
+        }
+
+        public void ToggleUI( bool hidden )
+        {
+            var renderingSystem = World.GetOrCreateSystemManaged<RenderingSystem>( );
+            renderingSystem.hideOverlay = hidden;
+            Colossal.UI.UIManager.defaultUISystem.enabled = !hidden;
+
+            if ( hidden )
+            {
+                World.GetExistingSystemManaged<ToolRaycastSystem>( ).raycastFlags |= RaycastFlags.FreeCameraDisable;
+                World.GetExistingSystemManaged<ToolSystem>().activeTool = ( ToolBaseSystem ) World.GetExistingSystemManaged<DefaultToolSystem>( );
+            }
+            else
+            {
+                World.GetExistingSystemManaged<ToolRaycastSystem>( ).raycastFlags &= ~RaycastFlags.FreeCameraDisable;
+            }
         }
     }
 }

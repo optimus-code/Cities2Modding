@@ -149,6 +149,14 @@
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Burst.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Unity.Transforms">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Transforms.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Unity.Transforms.Hybrid">
+			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.Transforms.Hybrid.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
 			<HintPath>$(Cities2_Location)\Cities2_Data\Managed\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
 			<Private>False</Private>

@@ -423,3 +423,8 @@ span.custom-highlight
 {
     margin-top: 4rem;
 }
+
+.tooltip-base_zwi
+{
+    background-color: rgba(35, 37, 40, 0.75) !important;
+}

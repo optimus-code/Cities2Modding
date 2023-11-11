@@ -3,6 +3,7 @@ using ExampleMod.Systems;
 using Game.Rendering;
 using Game.Simulation;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,8 @@ namespace ExampleMod.MonoBehaviours
         private Transform childTransform;
         private TerrainSystem terrainSystem;
         private CameraUpdateSystem cameraUpdateSystem;
+        private RenderingSystem renderingSystem;
+        private CameraCollisionSystem collisionSystem;
         private ExampleUISystem exampleUISystem;
 
         private List<InputAction> temporaryActions = new List<InputAction>( );
@@ -40,12 +43,12 @@ namespace ExampleMod.MonoBehaviours
         public float movementSpeed = 0.1f;
         public float runSpeed = 0.2f;
 
-        public float bobFrequency = 1.1f; // How fast the bobbing occurs
-        public float bobVerticalAmplitude = 0.06f; // How far the camera moves up and down
+        public float bobFrequency = 1.3f; // How fast the bobbing occurs
+        public float bobVerticalAmplitude = 0.02f; // How far the camera moves up and down
         public float bobbingSpeed = 10f; // How fast the bobbing transitions to the target position
         private float bobTimer = 0.0f;
 
-        public float swayFrequency = 0.3f; // The speed of the sway
+        public float swayFrequency = 0.05f; // The speed of the sway
         public float swayAmplitude = 0.0005f; // The magnitude of the sway
         private float swayTimer = 0.0f;
 
@@ -55,6 +58,8 @@ namespace ExampleMod.MonoBehaviours
 
         private float yaw = 0f;
         private float pitch = 0f;
+
+        private float storedLODScale;
 
         private void Start( )
         {
@@ -69,8 +74,8 @@ namespace ExampleMod.MonoBehaviours
 
             ApplyRotation( );
 
-            transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, 6f * Time.deltaTime );
-            childTransform.localRotation = Quaternion.Lerp( childTransform.localRotation, targetChildRotation, 6f * Time.deltaTime );
+            transform.rotation = Quaternion.Lerp( transform.rotation, targetRotation, 12f * Time.deltaTime );
+            childTransform.localRotation = Quaternion.Lerp( childTransform.localRotation, targetChildRotation, 12f * Time.deltaTime );
 
             ApplyPosition( );
 
@@ -129,9 +134,20 @@ namespace ExampleMod.MonoBehaviours
             if ( direction.magnitude > 0 )
                 direction.Normalize( );
 
-            // Now apply the movement speed to the direction
-            targetPosition += direction * movementSpeed;
-            targetPosition.y = groundY;
+            var collisionTest = new float3( targetPosition + direction * movementSpeed );
+
+            collisionSystem.CheckCollisions( ref collisionTest, targetPosition, targetRotation, 200f, 200f, ( float ) ( ( double ) virtualCamera.m_Lens.NearClipPlane * 2.0 + 1.0 ), virtualCamera.m_Lens.NearClipPlane, 1f / 1000f, virtualCamera.m_Lens.FieldOfView );
+
+            var originalDistance = Vector3.Distance( targetPosition, targetPosition + direction * movementSpeed );
+            var newDistance = Vector3.Distance( targetPosition, collisionTest );
+
+            if ( newDistance < originalDistance * 1.5f )
+            {
+                // Now apply the movement speed to the direction
+                //targetPosition += direction * movementSpeed;
+                targetPosition = collisionTest;
+                targetPosition.y = groundY;
+            }
         }
 
         private void ApplyHeadBob( )
@@ -210,6 +226,8 @@ namespace ExampleMod.MonoBehaviours
             terrainSystem = ts;
             cameraUpdateSystem = cu;
             exampleUISystem = eui;
+            renderingSystem = ts.World.GetOrCreateSystemManaged<RenderingSystem>();
+            collisionSystem = ts.World.GetOrCreateSystemManaged<CameraCollisionSystem>( );
         }
 
         private void CreateVirtualCamera( )
@@ -220,6 +238,8 @@ namespace ExampleMod.MonoBehaviours
 
             virtualCamera = childObject.AddComponent<CinemachineVirtualCamera>( );
             virtualCamera.Priority = 0;
+            virtualCamera.m_Lens.FieldOfView = 70;
+
             childTransform = virtualCamera.transform;
 
             transform.position = cameraUpdateSystem.activeCamera.transform.position;
@@ -293,11 +313,15 @@ namespace ExampleMod.MonoBehaviours
                 targetPosition = transform.position;
                 EnableTemporaryShortcuts( );
                 Cursor.lockState = CursorLockMode.Locked;
+
+                storedLODScale = renderingSystem.levelOfDetail;
+                renderingSystem.levelOfDetail = storedLODScale * 0.55f;
             }
             else
             {
                 DisableTemporaryShortcuts( );
                 Cursor.lockState = CursorLockMode.None;
+                renderingSystem.levelOfDetail = storedLODScale;
             }
         }
 
